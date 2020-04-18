@@ -1,23 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from "react-bootstrap/FormControl";
+import Button from 'react-bootstrap/Button'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Button variant="primary">Play</Button>{" "}
+        <Button variant="primary">Pause</Button>{" "}
+        <InputGroup className="mb-3" style={{ width: "50%" }}>
+          <InputGroup.Prepend>
+            <InputGroup.Text id="inputGroup-sizing-default">
+              Search
+            </InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </InputGroup>
+        <Button type="submit">Submit</Button>{" "}
       </header>
     </div>
   );
