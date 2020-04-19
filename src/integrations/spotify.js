@@ -89,7 +89,6 @@ const enqueueSong = async (trackUri, deviceId) => {
   return translateSpotifyResponse(response);
 }
 
-
 const play = async (trackUri, deviceId) => {
   let url = 'https://api.spotify.com/v1/me/player/play';
   if (deviceId != null) {
@@ -109,14 +108,28 @@ const play = async (trackUri, deviceId) => {
   return translateSpotifyResponse(response);
 }
 
+const pause = async (deviceId) => {
+  let url = 'https://api.spotify.com/v1/me/player/pause';
+  if (deviceId != null) {
+    url += `&device_id=${deviceId}`;
+  } else {
+    console.warn(
+      `pause() was called with a null device id.
+      This will fail if the user is not listening on any devices right now`
+    );
+  }
+  const response = await spotifetch(url, {
+    method: 'PUT',
+  });
+  return translateSpotifyResponse(response);
+}
+
 const searchItem = async (value) => {
   const queryParam = encodeURI(value)
   const response = await spotifetch(`https://api.spotify.com/v1/search?q=${queryParam}&type=track`);
   const json = await response.json()
   return json
 }
-
-searchItem().then(console.log)
 
 module.exports = { authenticateClientside, getDevices, searchItem };
 
