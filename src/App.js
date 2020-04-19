@@ -4,6 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
 import Form from "react-bootstrap/Form";
+import { authenticateClientside } from "./integrations/spotify.js";
 
 function App() {
   const [value, setValue] = useState([{
@@ -18,10 +19,15 @@ function App() {
     console.log("pause");
   }
 
-  const handleSubmit = event => {
-    event.preventDefault()
+  const handleSubmit = e => {
+    e.preventDefault()
     console.log(value)
   }
+
+  const authenticate = () => {
+    authenticateClientside();
+  }
+
 
   return (
     <div className="App">
@@ -34,20 +40,24 @@ function App() {
         </Button>{" "}
         <Form
           style={{ display: "inline-block" }}
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={handleSubmit}
         >
           <FormControl
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
             type="text"
             placeholder="Enter song name..."
-            // value={value}
             onChange={(e) => setValue(e.target.value)}
           />
         </Form>
-          <Button type="submit" className="submit" onClick={(event) => handleSubmit(event)}>
-            Submit
-          </Button>{" "}
+        <Button
+          type="submit"
+          className="submit"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>{" "}
+      <Button variant="primary" onClick={authenticate}>Authenticate</Button>
       </div>
     </div>
   );
