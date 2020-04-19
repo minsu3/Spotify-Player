@@ -131,8 +131,6 @@ const searchItem = async (value) => {
   return json
 }
 
-play().then(console.log);
-
-module.exports = { authenticateClientside, getDevices, searchItem };
+module.exports = { authenticateClientside, getDevices, searchItem, pause };
 
 // To test if Spotify integration works from your computer, run `node src/integrations/spotify.js`
