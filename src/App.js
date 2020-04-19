@@ -5,11 +5,28 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
 
 function App() {
+  
+  const play = () => {
+    console.log("playing...")
+  }
+
+  const pause = () => {
+    console.log("pause");
+  }
+
+  const search = () => {
+    console.log("searching...")
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <Button variant="primary">Play</Button>{" "}
-        <Button variant="primary">Pause</Button>{" "}
+        <Button variant="primary" onClick={() => play()}>
+          Play
+        </Button>{" "}
+        <Button variant="primary" onClick={() => pause()}>
+          Pause
+        </Button>{" "}
         <InputGroup className="mb-3" style={{ width: "50%" }}>
           <InputGroup.Prepend>
             <InputGroup.Text id="inputGroup-sizing-default">
@@ -21,7 +38,9 @@ function App() {
             aria-describedby="inputGroup-sizing-default"
           />
         </InputGroup>
-        <Button type="submit">Submit</Button>{" "}
+        <Button type="submit" onClick={() => search()}>
+          Submit
+        </Button>{" "}
       </header>
     </div>
   );
