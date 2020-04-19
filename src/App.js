@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import './App.css';
 import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
+import PlayBackDeviceSelector from './components/PlaybackDeviceSelector.react.js'
 import Form from "react-bootstrap/Form";
 import { authenticateClientside, searchItem, pause } from "./integrations/spotify.js";
 
-function List() {
-  const [searchResults, setSearchResults] = useState(null);
-
+function List(props) {
   return (
     <div className="list">
-      {setSearchResults}
+      
     </div>
   )
 }
@@ -19,6 +18,8 @@ function App() {
   const [currentSearchQuery, setCurrentSearchQuery] = useState({
     text: ''
   })
+
+  const [searchResults, setSearchResults] = useState(null);
 
   const play = () => {
     console.log('play.  Attempting to connect to backend; you should see something print after this')
@@ -63,7 +64,10 @@ function App() {
           Submit
         </Button>{" "}
       <Button variant="primary" onClick={authenticate}>Authenticate</Button>
-      <List />
+      <List 
+        
+        searchResults={searchResults}
+      />
       </div>
     </div>
   );

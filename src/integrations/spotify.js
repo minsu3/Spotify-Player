@@ -8,6 +8,8 @@ const parsedHash = new URLSearchParams(
 );
 const accessToken = parsedHash.get('access_token');
 
+let defaultDeviceId = null;
+
 if (clientSecret == null) {
   console.warn(
     `Spotify client secret was not found; please set it in your environment
@@ -50,9 +52,14 @@ const spotifetch = async (url, options) => {
     ...options.headers,
   };
   options.headers = headers;
-  return fetch(url, options);
+  const response = await fetch(url, options);
+  if (response.status === 401) authenticateClientside();
+  return response;
 }
 
+// For many requests, if it fails we get a descriptive JSON error, but success
+// returns nothing but a number (the status).  This function wraps success/failure
+// in a simple JSON object so we don't have to worry about type issues
 const translateSpotifyResponse = async (response) => {
   switch (response.status) {
     case 204:
@@ -67,7 +74,10 @@ const translateSpotifyResponse = async (response) => {
   }
 }
 
-const addDeviceId = (url, deviceId, context) => {
+// Add device ID for playback operations, falling back to the default.  If the
+// default is also null, Spotify will use the currently playing device
+const addDeviceId = (url, targetDeviceId, context) => {
+  const deviceId = targetDeviceId || defaultDeviceId;
   if (deviceId != null) {
     return url + `&device_id=${deviceId}`;
   } else {
@@ -131,6 +141,10 @@ const searchItem = async (value) => {
   return json
 }
 
-module.exports = { authenticateClientside, getDevices, searchItem, pause };
+const setDefaultDevice = deviceId => {
+  defaultDeviceId = deviceId;
+}
+
+module.exports = { authenticateClientside, getDevices, searchItem, pause, setDefaultDevice };
 
 // To test if Spotify integration works from your computer, run `node src/integrations/spotify.js`
