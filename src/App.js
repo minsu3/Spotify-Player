@@ -5,9 +5,10 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
 
 function App() {
-  
+
   const play = () => {
-    console.log("playing...")
+    console.log('play.  Attempting to connect to backend; you should see something print after this')
+    fetch('/ping').then(console.log);
   }
 
   const pause = () => {
