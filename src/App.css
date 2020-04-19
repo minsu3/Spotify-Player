@@ -42,3 +42,15 @@
   display: flex;
   float: right;
 } */
+
+.list {
+  position: relative;
+  top: 30px;
+  background: #e8e8e8;
+  border-radius: 6px;
+  padding: 5px;
+  max-width: 1000px;
+  margin: auto;
+  width: 90%;
+  padding: 10px;
+}

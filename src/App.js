@@ -5,12 +5,20 @@ import Button from 'react-bootstrap/Button'
 import Form from "react-bootstrap/Form";
 import { authenticateClientside, searchItem, pause } from "./integrations/spotify.js";
 
+function List() {
+  const [searchResults, setSearchResults] = useState(null);
+
+  return (
+    <div className="list">
+      {setSearchResults}
+    </div>
+  )
+}
+
 function App() {
   const [currentSearchQuery, setCurrentSearchQuery] = useState({
     text: ''
   })
-
-  const [searchResults, setSearchResults] = useState(null)
 
   const play = () => {
     console.log('play.  Attempting to connect to backend; you should see something print after this')
@@ -55,6 +63,7 @@ function App() {
           Submit
         </Button>{" "}
       <Button variant="primary" onClick={authenticate}>Authenticate</Button>
+      <List />
       </div>
     </div>
   );
