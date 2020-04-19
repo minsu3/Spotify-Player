@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
-import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
 import Form from "react-bootstrap/Form";
-import { authenticateClientside } from "./integrations/spotify.js";
+import { authenticateClientside, searchItem } from "./integrations/spotify.js";
 
 function App() {
   const [value, setValue] = useState([{
@@ -21,7 +20,7 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(value)
+    searchItem(value)
   }
 
   const authenticate = () => {

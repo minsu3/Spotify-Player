@@ -85,6 +85,15 @@ const enqueueSong = async (trackUri, deviceId) => {
   }
 }
 
-module.exports = {authenticateClientside, getDevices, enqueueSong};
+const searchItem = async (value) => {
+  const queryParam = encodeURI(value)
+  const response = await spotifetch(`https://api.spotify.com/v1/search?q=${queryParam}&type=track`);
+  const json = await response.json()
+  return json
+}
+
+searchItem().then(console.log)
+
+module.exports = { authenticateClientside, getDevices, searchItem };
 
 // To test if Spotify integration works from your computer, run `node src/integrations/spotify.js`
