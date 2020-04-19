@@ -3,7 +3,9 @@ import './App.css';
 import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
 import Form from "react-bootstrap/Form";
+import PlaybackDeviceSelector from './components/PlaybackDeviceSelector.react.js';
 import { authenticateClientside, searchItem, pause } from "./integrations/spotify.js";
+
 
 function App() {
   const [value, setValue] = useState([{
@@ -52,6 +54,7 @@ function App() {
           Submit
         </Button>{" "}
       <Button variant="primary" onClick={authenticate}>Authenticate</Button>
+      <PlaybackDeviceSelector />
       </div>
     </div>
   );
