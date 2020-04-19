@@ -6,9 +6,11 @@ import Form from "react-bootstrap/Form";
 import { authenticateClientside, searchItem } from "./integrations/spotify.js";
 
 function App() {
-  const [value, setValue] = useState([{
+  const [currentSearchQuery, setCurrentSearchQuery] = useState({
     text: ''
-  }])
+  })
+  const [searchResults, setSearchResults] = useState(null)
+
   const play = () => {
     console.log('play.  Attempting to connect to backend; you should see something print after this')
     fetch('/play').then(console.log);
@@ -18,9 +20,9 @@ function App() {
     console.log("pause");
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    searchItem(value)
+    console.log(await searchItem(value))
   }
 
   const authenticate = () => {
@@ -44,6 +46,7 @@ function App() {
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
             type="text"
+            // value={value}
             placeholder="Enter song name..."
             onChange={(e) => setValue(e.target.value)}
           />

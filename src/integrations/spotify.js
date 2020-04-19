@@ -92,7 +92,7 @@ const searchItem = async (value) => {
   return json
 }
 
-searchItem().then(console.log)
+// searchItem().then(console.log)
 
 module.exports = { authenticateClientside, getDevices, searchItem };
 
