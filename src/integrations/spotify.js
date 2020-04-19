@@ -67,6 +67,18 @@ const translateSpotifyResponse = async (response) => {
   }
 }
 
+const addDeviceId = (url, deviceId, context) => {
+  if (deviceId != null) {
+    return url + `&device_id=${deviceId}`;
+  } else {
+    console.warn(
+      `${context} was called with a null device id.
+      This will fail if the user is not listening on any devices right now`
+    );
+    return url;
+  }
+}
+
 // Get a list of the user's devices
 const getDevices = async () => {
   const response = await spotifetch('https://api.spotify.com/v1/me/player/devices');
@@ -76,29 +88,21 @@ const getDevices = async () => {
 
 // Add a song to the user's queue.  Spotify requires us to pass the song URI, not it's ID!
 const enqueueSong = async (trackUri, deviceId) => {
-  let url = `https://api.spotify.com/v1/me/player/queue?uri=${trackUri}`;
-  if (deviceId != null) {
-    url += `&device_id=${deviceId}`;
-  } else {
-    console.warn(
-      `enqueueSong() was called with a null device id.
-      This will fail if the user is not listening on any devices right now`
-    );
-  }
+  const url = addDeviceId(
+    `https://api.spotify.com/v1/me/player/queue?uri=${trackUri}`,
+    deviceId,
+    'enqueueSong()',
+  );
   const response = await spotifetch(url, {method: 'POST'});
   return translateSpotifyResponse(response);
 }
 
 const play = async (trackUri, deviceId) => {
-  let url = 'https://api.spotify.com/v1/me/player/play';
-  if (deviceId != null) {
-    url += `&device_id=${deviceId}`;
-  } else {
-    console.warn(
-      `play() was called with a null device id.
-      This will fail if the user is not listening on any devices right now`
-    );
-  }
+  const url = addDeviceId(
+    'https://api.spotify.com/v1/me/player/play',
+    deviceId,
+    'play()',
+  );
   const response = await spotifetch(url, {
     method: 'PUT',
     body: trackUri ? JSON.stringify({
@@ -109,15 +113,11 @@ const play = async (trackUri, deviceId) => {
 }
 
 const pause = async (deviceId) => {
-  let url = 'https://api.spotify.com/v1/me/player/pause';
-  if (deviceId != null) {
-    url += `&device_id=${deviceId}`;
-  } else {
-    console.warn(
-      `pause() was called with a null device id.
-      This will fail if the user is not listening on any devices right now`
-    );
-  }
+  const url = addDeviceId(
+    'https://api.spotify.com/v1/me/player/pause',
+    deviceId,
+    'pause()',
+  );
   const response = await spotifetch(url, {
     method: 'PUT',
   });
@@ -130,6 +130,8 @@ const searchItem = async (value) => {
   const json = await response.json()
   return json
 }
+
+play().then(console.log);
 
 module.exports = { authenticateClientside, getDevices, searchItem };
 
