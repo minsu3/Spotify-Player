@@ -26,7 +26,7 @@ if (accessToken == null) {
 // Use Spotify's Implicit Grant Flow to authorize without secret keys.  We can
 // run this function directly in the browser, no backend required
 const authenticateClientside = async () => {
-  const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=http:%2F%2Flocalhost:3000&scope=user-read-private%20user-read-email&response_type=token`;
+  const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=http:%2F%2Flocalhost:3000&scope=user-read-playback-state%20user-read-email&response_type=token`;
   window.location.href = url;
 }
 
@@ -52,8 +52,13 @@ const spotifetch = async (url, options) => {
   return fetch(url, options);
 }
 
-spotifetch('/ping').then(console.log);
+// Get a list of the user's devices
+const getDevices = async () => {
+  const response = await spotifetch('https://api.spotify.com/v1/me/player/devices');
+  const json = await response.json();
+  return json.devices;
+}
 
-module.exports = {authenticateClientside};
+module.exports = {authenticateClientside, getDevices};
 
 // To test if Spotify integration works from your computer, run `node src/integrations/spotify.js`
