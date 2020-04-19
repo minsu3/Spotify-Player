@@ -50,7 +50,9 @@ const spotifetch = async (url, options) => {
     ...options.headers,
   };
   options.headers = headers;
-  return fetch(url, options);
+  const response = await fetch(url, options);
+  if (response.status === 401) authenticateClientside();
+  return response;
 }
 
 const translateSpotifyResponse = async (response) => {
