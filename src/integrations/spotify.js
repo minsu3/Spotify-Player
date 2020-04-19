@@ -60,6 +60,31 @@ const getDevices = async () => {
   return json.devices;
 }
 
-module.exports = {authenticateClientside, getDevices};
+// Add a song to the user's queue.  Spotify requires us to pass the song URI, not it's ID!
+const enqueueSong = async (trackUri, deviceId) => {
+  let url = `https://api.spotify.com/v1/me/player/queue?uri=${trackUri}`;
+  if (deviceId != null) {
+    url += `&device_id=${deviceId}`;
+  } else {
+    console.warn(
+      `enqueueSong() was called with a null device id.
+      This will fail if the user is not listening on any devices right now`
+    );
+  }
+  const response = await spotifetch(url, {method: 'POST'});
+  switch (response.status) {
+    case 204:
+      return {
+        success: true,
+      }
+    default:
+      return {
+        success: false,
+        responseJson: await response.json(),
+      }
+  }
+}
+
+module.exports = {authenticateClientside, getDevices, enqueueSong};
 
 // To test if Spotify integration works from your computer, run `node src/integrations/spotify.js`
