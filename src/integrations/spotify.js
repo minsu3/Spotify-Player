@@ -32,7 +32,7 @@ const authenticateClientside = async () => {
 
 // Spotify-specific wrapper around fetch.  Auto-injects the access token if it
 // exists, otherwise takes them to auth
-const spotifetch = async (url, options) = {
+const spotifetch = async (url, options) => {
   if (accessToken == null) {
     console.warn("No clientside access token.  Redirecting to authentication page...");
     return authenticateClientside();
