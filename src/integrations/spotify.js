@@ -30,6 +30,30 @@ const authenticateClientside = async () => {
   window.location.href = url;
 }
 
+// Spotify-specific wrapper around fetch.  Auto-injects the access token if it
+// exists, otherwise takes them to auth
+const spotifetch = async (url, options) = {
+  if (accessToken == null) {
+    console.warn("No clientside access token.  Redirecting to authentication page...");
+    return authenticateClientside();
+  }
+  const tokenHeader = {
+    'Authorization': 'Bearer ' + accessToken,
+  };
+  if (options == null) {
+    options = {headers: tokenHeader};
+    return fetch(url, options);
+  }
+  const headers = {
+    ...tokenHeader,
+    ...options.headers,
+  };
+  options.headers = headers;
+  return fetch(url, options);
+}
+
+spotifetch('/ping').then(console.log);
+
 module.exports = {authenticateClientside};
 
 // To test if Spotify integration works from your computer, run `node src/integrations/spotify.js`
