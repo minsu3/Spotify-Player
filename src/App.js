@@ -9,6 +9,7 @@ function App() {
   const [currentSearchQuery, setCurrentSearchQuery] = useState({
     text: ''
   })
+
   const [searchResults, setSearchResults] = useState(null)
 
   const play = () => {
@@ -22,7 +23,7 @@ function App() {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    console.log(await searchItem(value))
+    console.log(await searchItem(currentSearchQuery))
   }
 
   const authenticate = () => {
@@ -46,9 +47,8 @@ function App() {
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
             type="text"
-            // value={value}
             placeholder="Enter song name..."
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setCurrentSearchQuery(e.target.value)}
           />
         </Form>
         <Button

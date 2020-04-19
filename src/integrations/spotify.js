@@ -53,6 +53,20 @@ const spotifetch = async (url, options) => {
   return fetch(url, options);
 }
 
+const translateSpotifyResponse = async (response) => {
+  switch (response.status) {
+    case 204:
+      return {
+        success: true,
+      }
+    default:
+      return {
+        success: false,
+        responseJson: await response.json(),
+      }
+  }
+}
+
 // Get a list of the user's devices
 const getDevices = async () => {
   const response = await spotifetch('https://api.spotify.com/v1/me/player/devices');
@@ -72,17 +86,42 @@ const enqueueSong = async (trackUri, deviceId) => {
     );
   }
   const response = await spotifetch(url, {method: 'POST'});
-  switch (response.status) {
-    case 204:
-      return {
-        success: true,
-      }
-    default:
-      return {
-        success: false,
-        responseJson: await response.json(),
-      }
+  return translateSpotifyResponse(response);
+}
+
+const play = async (trackUri, deviceId) => {
+  let url = 'https://api.spotify.com/v1/me/player/play';
+  if (deviceId != null) {
+    url += `&device_id=${deviceId}`;
+  } else {
+    console.warn(
+      `play() was called with a null device id.
+      This will fail if the user is not listening on any devices right now`
+    );
   }
+  const response = await spotifetch(url, {
+    method: 'PUT',
+    body: trackUri ? JSON.stringify({
+      uris: [trackUri],
+    }) : '{}',
+  });
+  return translateSpotifyResponse(response);
+}
+
+const pause = async (deviceId) => {
+  let url = 'https://api.spotify.com/v1/me/player/pause';
+  if (deviceId != null) {
+    url += `&device_id=${deviceId}`;
+  } else {
+    console.warn(
+      `pause() was called with a null device id.
+      This will fail if the user is not listening on any devices right now`
+    );
+  }
+  const response = await spotifetch(url, {
+    method: 'PUT',
+  });
+  return translateSpotifyResponse(response);
 }
 
 const searchItem = async (value) => {
@@ -91,8 +130,6 @@ const searchItem = async (value) => {
   const json = await response.json()
   return json
 }
-
-// searchItem().then(console.log)
 
 module.exports = { authenticateClientside, getDevices, searchItem };
 
