@@ -4,7 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
 import Form from "react-bootstrap/Form";
-import { authenticateClientside, enqueueSong } from "./integrations/spotify.js";
+import { authenticateClientside } from "./integrations/spotify.js";
 
 function App() {
   const [value, setValue] = useState([{
@@ -16,7 +16,6 @@ function App() {
   }
 
   const pause = () => {
-    enqueueSong('test').then(console.log);
     console.log("pause");
   }
 
