@@ -1,48 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
+import Form from "react-bootstrap/Form";
 
 function App() {
-
+  const [value, setValue] = useState([{
+    text: ''
+  }])
   const play = () => {
     console.log('play.  Attempting to connect to backend; you should see something print after this')
-    fetch('/ping').then(console.log);
+    fetch('/play').then(console.log);
   }
 
   const pause = () => {
     console.log("pause");
   }
 
-  const search = () => {
-    console.log("searching...")
+  const handleSubmit = event => {
+    event.preventDefault()
+    console.log(value)
   }
 
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="App-header">
         <Button variant="primary" onClick={() => play()}>
           Play
         </Button>{" "}
         <Button variant="primary" onClick={() => pause()}>
           Pause
         </Button>{" "}
-        <InputGroup className="mb-3" style={{ width: "50%" }}>
-          <InputGroup.Prepend>
-            <InputGroup.Text id="inputGroup-sizing-default">
-              Search
-            </InputGroup.Text>
-          </InputGroup.Prepend>
+        <Form
+          style={{ display: "inline-block" }}
+          onSubmit={(e) => handleSubmit(e)}
+        >
           <FormControl
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
+            type="text"
+            placeholder="Enter song name..."
+            // value={value}
+            onChange={(e) => setValue(e.target.value)}
           />
-        </InputGroup>
-        <Button type="submit" onClick={() => search()}>
-          Submit
-        </Button>{" "}
-      </header>
+        </Form>
+          <Button type="submit" className="submit" onClick={(event) => handleSubmit(event)}>
+            Submit
+          </Button>{" "}
+      </div>
     </div>
   );
 }
