@@ -53,6 +53,20 @@ const spotifetch = async (url, options) => {
   return fetch(url, options);
 }
 
+const translateSpotifyResponse = async (response) => {
+  switch (response.status) {
+    case 204:
+      return {
+        success: true,
+      }
+    default:
+      return {
+        success: false,
+        responseJson: await response.json(),
+      }
+  }
+}
+
 // Get a list of the user's devices
 const getDevices = async () => {
   const response = await spotifetch('https://api.spotify.com/v1/me/player/devices');
@@ -72,17 +86,7 @@ const enqueueSong = async (trackUri, deviceId) => {
     );
   }
   const response = await spotifetch(url, {method: 'POST'});
-  switch (response.status) {
-    case 204:
-      return {
-        success: true,
-      }
-    default:
-      return {
-        success: false,
-        responseJson: await response.json(),
-      }
-  }
+  return translateSpotifyResponse(response);
 }
 
 
@@ -102,17 +106,7 @@ const play = async (trackUri, deviceId) => {
       uris: [trackUri],
     }) : '{}',
   });
-  switch (response.status) {
-    case 204:
-      return {
-        success: true,
-      }
-    default:
-      return {
-        success: false,
-        responseJson: await response.json(),
-      }
-  }
+  return translateSpotifyResponse(response);
 }
 
 const searchItem = async (value) => {
