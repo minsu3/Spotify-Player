@@ -3,7 +3,7 @@ import './App.css';
 import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button'
 import Form from "react-bootstrap/Form";
-import { authenticateClientside, searchItem } from "./integrations/spotify.js";
+import { authenticateClientside, searchItem, pause } from "./integrations/spotify.js";
 
 function App() {
   const [currentSearchQuery, setCurrentSearchQuery] = useState({
@@ -15,10 +15,6 @@ function App() {
   const play = () => {
     console.log('play.  Attempting to connect to backend; you should see something print after this')
     fetch('/play').then(console.log);
-  }
-
-  const pause = () => {
-    console.log("pause");
   }
 
   const handleSubmit = async e => {
