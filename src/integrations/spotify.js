@@ -10,3 +10,5 @@ if (clientSecret == null) {
     communicate with Spotify will just log to the console :)`
   );
 }
+
+// To test if Spotify integration works from your computer, run `node src/integrations/spotify.js`
