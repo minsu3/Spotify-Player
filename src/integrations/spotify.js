@@ -26,7 +26,8 @@ if (accessToken == null) {
 // Use Spotify's Implicit Grant Flow to authorize without secret keys.  We can
 // run this function directly in the browser, no backend required
 const authenticateClientside = async () => {
-  const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=http:%2F%2Flocalhost:3000&scope=user-read-playback-state%20user-read-email&response_type=token`;
+  const scope = 'user-read-playback-state user-modify-playback-state';
+  const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=http:%2F%2Flocalhost:3000&scope=${encodeURI(scope)}&response_type=token`;
   window.location.href = url;
 }
 
