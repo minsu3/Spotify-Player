@@ -7,9 +7,13 @@ import Form from "react-bootstrap/Form";
 import { authenticateClientside, searchItem, pause } from "./integrations/spotify.js";
 
 function List(props) {
+  console.log('searchResults = ', props)
+  
   return (
     <div className="list">
-      
+      {props.searchResults.map(result => <p style={{color: "black"}}>
+        {result.trackName}        
+      </p>)}
     </div>
   )
 }
@@ -19,7 +23,7 @@ function App() {
     text: ''
   })
 
-  const [searchResults, setSearchResults] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
 
   const play = () => {
     console.log('play.  Attempting to connect to backend; you should see something print after this')
@@ -28,7 +32,18 @@ function App() {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    console.log(await searchItem(currentSearchQuery))
+    let searchResponse = await searchItem(currentSearchQuery)
+    console.log(searchResponse)
+    let itemsArray = searchResponse.tracks.items
+    let testArray = [];
+    for(let item of itemsArray) {
+      let trackName = {
+        "trackName": item.name
+      }
+      testArray.push(trackName)
+    }
+    setSearchResults(testArray)
+    console.log('Track Name = ', testArray)
   }
 
   const authenticate = () => {
@@ -38,6 +53,7 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
+        
         <Button variant="primary" onClick={() => play()}>
           Play
         </Button>{" "}
@@ -46,7 +62,6 @@ function App() {
         </Button>{" "}
         <Form
           style={{ display: "inline-block" }}
-          onSubmit={handleSubmit}
         >
           <FormControl
             aria-label="Default"
@@ -63,11 +78,10 @@ function App() {
         >
           Submit
         </Button>{" "}
-      <Button variant="primary" onClick={authenticate}>Authenticate</Button>
-      <List 
-        
-        searchResults={searchResults}
-      />
+        <Button variant="primary" onClick={authenticate}>Authenticate</Button>
+        <List
+          searchResults={searchResults}
+        />
       </div>
     </div>
   );
