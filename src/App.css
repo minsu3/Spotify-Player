@@ -17,12 +17,11 @@
   background-color: #282c34;
   min-height: 100vh;
   /* display: flex; */
-  line-height: 700px;
+  line-height: 100px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -42,15 +41,31 @@
   display: flex;
   float: right;
 } */
-
+.title{
+  position: relative;
+  top: 20px;
+  color: white;
+}
 .list {
   position: relative;
-  top: 30px;
+  top: 0px;
   background: #e8e8e8;
   border-radius: 6px;
-  padding: 5px;
-  max-width: 1000px;
+  max-width: 500px;
   margin: auto;
   width: 90%;
-  padding: 10px;
+}
+
+.render {
+  background: #fff;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+  padding: 20px 10px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  height: 10px;
 }

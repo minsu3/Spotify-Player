@@ -11,7 +11,7 @@ function List(props) {
   
   return (
     <div className="list">
-      {props.searchResults.map(result => <p style={{color: "black"}}>
+      {props.searchResults.map(result => <p className="render">
         {result.trackName}        
       </p>)}
     </div>
@@ -53,6 +53,7 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
+      <h1 className="title">Spotify Player</h1>
         
         <Button variant="primary" onClick={() => play()}>
           Play
@@ -79,9 +80,11 @@ function App() {
           Submit
         </Button>{" "}
         <Button variant="primary" onClick={authenticate}>Authenticate</Button>
+
         <List
           searchResults={searchResults}
         />
+
       </div>
     </div>
   );
