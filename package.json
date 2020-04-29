@@ -1,4 +1,5 @@
 {
+  "homepage": "http://minsu3.github.io/chihuahua",
   "name": "home-controller",
   "version": "0.1.0",
   "private": true,
@@ -15,6 +16,8 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "backend": "node src/server/server.js",
     "build": "react-scripts build",
@@ -35,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }

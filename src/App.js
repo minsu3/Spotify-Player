@@ -8,11 +8,11 @@ import { authenticateClientside, searchItem, pause } from "./integrations/spotif
 
 function List(props) {
   console.log('searchResults = ', props)
-  
+
   return (
     <div className="list">
       {props.searchResults.map(result => <p className="render">
-        {result.trackName}        
+        {result.trackName}
       </p>)}
     </div>
   )
@@ -79,10 +79,11 @@ function App() {
         >
           Submit
         </Button>{" "}
-        <Button variant="primary" onClick={authenticate}>Authenticate</Button>
+        <Button variant="primary" onClick={authenticate} className="authenticate">Authenticate</Button>
 
         <List
           searchResults={searchResults}
+          key={searchResults}
         />
 
       </div>
