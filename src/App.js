@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import './App.css';
 import FormControl from "react-bootstrap/FormControl";
-import Button from 'react-bootstrap/Button'
-import PlayBackDeviceSelector from './components/PlaybackDeviceSelector.react.js'
+import Button from 'react-bootstrap/Button';
+import PlayBackDeviceSelector from './components/PlaybackDeviceSelector.react.js';
 import Form from "react-bootstrap/Form";
-import { authenticateClientside, searchItem, pause } from "./integrations/spotify.js";
+import {
+  authenticateClientside,
+  searchItem,
+  pause,
+} from "./integrations/spotify.react.js";
 
 function List(props) {
   console.log('searchResults = ', props)

@@ -31,6 +31,7 @@ const authenticateClientside = async () => {
   const scope = 'user-read-playback-state user-modify-playback-state';
   const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=http:%2F%2Flocalhost:3000&scope=${encodeURI(scope)}&response_type=token`;
   window.location.href = url;
+  return null;
 }
 
 // Spotify-specific wrapper around fetch.  Auto-injects the access token if it
@@ -145,6 +146,6 @@ const setDefaultDevice = deviceId => {
   defaultDeviceId = deviceId;
 }
 
-module.exports = { authenticateClientside, getDevices, searchItem, pause, setDefaultDevice };
+export { authenticateClientside, getDevices, searchItem, pause, setDefaultDevice };
 
 // To test if Spotify integration works from your computer, run `node src/integrations/spotify.js`
