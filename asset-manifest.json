@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/chihuahua/static/css/main.fe6803f3.chunk.css",
+    "main.js": "/chihuahua/static/js/main.8939ce43.chunk.js",
+    "main.js.map": "/chihuahua/static/js/main.8939ce43.chunk.js.map",
+    "runtime-main.js": "/chihuahua/static/js/runtime-main.650ac8d3.js",
+    "runtime-main.js.map": "/chihuahua/static/js/runtime-main.650ac8d3.js.map",
+    "static/css/2.69121389.chunk.css": "/chihuahua/static/css/2.69121389.chunk.css",
+    "static/js/2.4354e2b2.chunk.js": "/chihuahua/static/js/2.4354e2b2.chunk.js",
+    "static/js/2.4354e2b2.chunk.js.map": "/chihuahua/static/js/2.4354e2b2.chunk.js.map",
+    "index.html": "/chihuahua/index.html",
+    "precache-manifest.c749ae1470a083f0b8fabb6e666a9f2b.js": "/chihuahua/precache-manifest.c749ae1470a083f0b8fabb6e666a9f2b.js",
+    "service-worker.js": "/chihuahua/service-worker.js",
+    "static/css/2.69121389.chunk.css.map": "/chihuahua/static/css/2.69121389.chunk.css.map",
+    "static/css/main.fe6803f3.chunk.css.map": "/chihuahua/static/css/main.fe6803f3.chunk.css.map",
+    "static/js/2.4354e2b2.chunk.js.LICENSE.txt": "/chihuahua/static/js/2.4354e2b2.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.650ac8d3.js",
+    "static/css/2.69121389.chunk.css",
+    "static/js/2.4354e2b2.chunk.js",
+    "static/css/main.fe6803f3.chunk.css",
+    "static/js/main.8939ce43.chunk.js"
+  ]
+}
