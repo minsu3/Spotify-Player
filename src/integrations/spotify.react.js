@@ -4,7 +4,7 @@ const CLIENT_SECRET_ENV_VARIABLE_NAME = 'CHIHUAHUA_SPOTIFY_SECRET';
 const clientSecret = process.env[CLIENT_SECRET_ENV_VARIABLE_NAME];
 
 const parsedHash = new URLSearchParams(
-    window.location.hash.substr(1) // skip the first char (#)
+  window.location.hash.substr(1) // skip the first char (#)
 );
 const accessToken = parsedHash.get('access_token');
 
